@@ -29,7 +29,7 @@
 #ifdef _ALLBSD_SOURCE
 #include <machine/endian.h>
 #else
-#include <endian.h>
+#include <machine/endian.h>
 #endif
 
 #if __BYTE_ORDER == __LITTLE_ENDIAN
@@ -37,6 +37,7 @@
 #endif
 
 #define IOSTRING_META "protobuf.IOString"
+#define luaL_reg      luaL_Reg
 
 #define checkiostring(L) \
     (IOString*) luaL_checkudata(L, 1, IOSTRING_META)
@@ -468,7 +469,6 @@ int luaopen_pb (lua_State *L)
     lua_pushvalue(L, -1);
     lua_setfield(L, -2, "__index");
     luaL_register(L, NULL, _c_iostring_m);
-
     luaL_register(L, "pb", _pb);
     return 1;
 } 
